@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Fee Collection</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      font-family: Arial, sans-serif;
+      color: #202938;
+      background: #f3f5f8;
+    }
+
+    .form-container {
+      width: min(100%, 820px);
+      margin: 0 auto;
+      padding: 28px;
+      background: #fff;
+      border: 1px solid #d5dbe3;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.7rem;
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: #5d6878;
+    }
+
+    fieldset {
+      margin: 0 0 24px;
+      padding: 20px;
+      border: 1px solid #d5dbe3;
+    }
+
+    legend {
+      padding: 0 8px;
+      font-weight: 700;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px 18px;
+    }
+
+    .field {
+      position: relative;
+      min-width: 0;
+    }
+
+    .field.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      display: block;
+      width: 100%;
+      min-height: 54px;
+      padding: 20px 12px 8px;
+      border: 1px solid #aeb8c5;
+      border-radius: 0;
+      background: #fff;
+      color: #202938;
+      font: inherit;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .field label {
+      position: absolute;
+      top: 17px;
+      left: 12px;
+      padding: 0 3px;
+      color: #687587;
+      background: #fff;
+      pointer-events: none;
+      transition: top 0.15s ease, font-size 0.15s ease, color 0.15s ease;
+    }
+
+    .field:focus-within label,
+    .field.has-value label {
+      top: -8px;
+      color: #155eef;
+      font-size: 0.78rem;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: #155eef;
+    }
+
+    .field input[readonly] {
+      background: #f5f7fa;
+    }
+
+    /* Keep native date text aligned under the floating label */
+    .field input[type="date"] {
+      padding-top: 20px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    button {
+      min-height: 44px;
+      padding: 10px 18px;
+      border: 1px solid #155eef;
+      border-radius: 0;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .submit-button {
+      color: #fff;
+      background: #155eef;
+    }
+
+    .reset-button {
+      color: #202938;
+      background: #fff;
+      border-color: #aeb8c5;
+    }
+
+    #message {
+      margin-top: 16px;
+      color: #147a3d;
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 20px 16px;
+      }
+
+      fieldset {
+        padding: 16px 12px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full-width {
+        grid-column: auto;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="form-container">
+    <h1>Student Fee Collection</h1>
+    <p class="description">Record a student fee payment.</p>
+
+    <form id="feeForm">
+      <fieldset>
+        <legend>Student Information</legend>
+
+        <div class="form-grid">
+          <div class="field">
+            <input type="text" id="studentId" name="studentId" placeholder=" " required>
+            <label for="studentId">Student ID</label>
+          </div>
+
+          <div class="field">
+            <input type="text" id="studentName" name="studentName" placeholder=" " required>
+            <label for="studentName">Student Name</label>
+          </div>
+
+          <div class="field">
+            <select id="className" name="className" required>
+              <option value="" selected></option>
+              <option value="Grade 1">Grade 1</option>
+              <option value="Grade 2">Grade 2</option>
+              <option value="Grade 3">Grade 3</option>
+              <option value="Grade 4">Grade 4</option>
+              <option value="Grade 5">Grade 5</option>
+              <option value="Grade 6">Grade 6</option>
+              <option value="Grade 7">Grade 7</option>
+              <option value="Grade 8">Grade 8</option>
+              <option value="Grade 9">Grade 9</option>
+              <option value="Grade 10">Grade 10</option>
+              <option value="Grade 11">Grade 11</option>
+              <option value="Grade 12">Grade 12</option>
+            </select>
+            <label for="className">Class</label>
+          </div>
+
+          <div class="field">
+            <input type="text" id="section" name="section" placeholder=" ">
+            <label for="section">Section</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Payment Information</legend>
+
+        <div class="form-grid">
+          <div class="field">
+            <select id="feeType" name="feeType" required>
+              <option value="" selected></option>
+              <option value="Tuition Fee">Tuition Fee</option>
+              <option value="Registration Fee">Registration Fee</option>
+              <option value="Examination Fee">Examination Fee</option>
+              <option value="Transportation Fee">Transportation Fee</option>
+              <option value="Library Fee">Library Fee</option>
+              <option value="Other">Other</option>
+            </select>
+            <label for="feeType">Fee Type</label>
+          </div>
+
+          <div class="field">
+            <input type="text" id="academicYear" name="academicYear" placeholder=" ">
+            <label for="academicYear">Academic Year</label>
+          </div>
+
+          <div class="field">
+            <input type="date" id="paymentDate" name="paymentDate" required>
+            <label for="paymentDate">Payment Date</label>
+          </div>
+
+          <div class="field">
+            <input type="text" id="receiptNumber" name="receiptNumber" placeholder=" " required>
+            <label for="receiptNumber">Receipt Number</label>
+          </div>
+
+          <div class="field">
+            <input
+              type="number"
+              id="totalDue"
+              name="totalDue"
+              min="0"
+              step="0.01"
+              placeholder=" "
+              required
+            >
+            <label for="totalDue">Total Fee Due</label>
+          </div>
+
+          <div class="field">
+            <input
+              type="number"
+              id="amountPaid"
+              name="amountPaid"
+              min="0"
+              step="0.01"
+              placeholder=" "
+              required
+            >
+            <label for="amountPaid">Amount Paid</label>
+          </div>
+
+          <div class="field">
+            <input type="number" id="balance" name="balance" placeholder=" " readonly>
+            <label for="balance">Balance Due</label>
+          </div>
+
+          <div class="field">
+            <select id="paymentMethod" name="paymentMethod" required>
+              <option value="" selected></option>
+              <option value="Cash">Cash</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="Card">Card</option>
+              <option value="Cheque">Cheque</option>
+              <option value="Mobile Payment">Mobile Payment</option>
+            </select>
+            <label for="paymentMethod">Payment Method</label>
+          </div>
+
+          <div class="field full-width">
+            <textarea id="notes" name="notes" placeholder=" "></textarea>
+            <label for="notes">Notes</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button class="submit-button" type="submit">Record Payment</button>
+        <button class="reset-button" type="reset">Clear Form</button>
+      </div>
+
+      <p id="message" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById("feeForm");
+    const fields = form.querySelectorAll("input, select, textarea");
+    const totalDue = document.getElementById("totalDue");
+    const amountPaid = document.getElementById("amountPaid");
+    const balance = document.getElementById("balance");
+    const message = document.getElementById("message");
+
+    function updateField(field) {
+      const wrapper = field.closest(".field");
+      if (!wrapper) return;
+
+      const hasValue = field.type === "file"
+        ? field.files.length > 0
+        : field.value.trim() !== "";
+
+      wrapper.classList.toggle("has-value", hasValue);
+    }
+
+    function updateBalance() {
+      const due = Number(totalDue.value) || 0;
+      const paid = Number(amountPaid.value) || 0;
+
+      balance.value = Math.max(due - paid, 0).toFixed(2);
+      updateField(balance);
+    }
+
+    fields.forEach((field) => {
+      field.addEventListener("input", () => {
+        updateField(field);
+        if (field === totalDue || field === amountPaid) updateBalance();
+      });
+
+      field.addEventListener("change", () => {
+        updateField(field);
+        if (field === totalDue || field === amountPaid) updateBalance();
+      });
+
+      updateField(field);
+    });
+
+    form.addEventListener("reset", () => {
+      message.textContent = "";
+
+      requestAnimationFrame(() => {
+        fields.forEach(updateField);
+        updateBalance();
+      });
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (!form.reportValidity()) return;
+
+      message.textContent = "Payment recorded successfully.";
+      form.reset();
+    });
+  </script>
+</body>
+</html>

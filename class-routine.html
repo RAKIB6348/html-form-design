@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Class Routine</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 32px 16px;
+            font-family: Arial, sans-serif;
+            color: #202938;
+            background: #f3f5f8;
+        }
+
+        .form-container {
+            width: min(100%, 900px);
+            margin: 0 auto;
+            padding: 28px;
+            background: #fff;
+            border: 1px solid #d5dbe3;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 1.7rem;
+        }
+
+        .description {
+            margin: 0 0 24px;
+            color: #5d6878;
+        }
+
+        fieldset {
+            margin: 0 0 24px;
+            padding: 20px;
+            border: 1px solid #d5dbe3;
+        }
+
+        legend {
+            padding: 0 8px;
+            font-weight: 700;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px 18px;
+        }
+
+        .field {
+            position: relative;
+            min-width: 0;
+        }
+
+        .field input,
+        .field select {
+            display: block;
+            width: 100%;
+            min-height: 54px;
+            padding: 20px 12px 8px;
+            border: 1px solid #aeb8c5;
+            border-radius: 0;
+            background: #fff;
+            color: #202938;
+            font: inherit;
+            outline: none;
+        }
+
+        .field label {
+            position: absolute;
+            top: 17px;
+            left: 12px;
+            padding: 0 3px;
+            color: #687587;
+            background: #fff;
+            pointer-events: none;
+            transition: top 0.15s ease, font-size 0.15s ease, color 0.15s ease;
+        }
+
+        .field:focus-within label,
+        .field.has-value label {
+            top: -8px;
+            color: #155eef;
+            font-size: 0.78rem;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: #155eef;
+        }
+
+        .periods-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .periods-heading h2 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .period-row {
+            display: grid;
+            grid-template-columns: 1.3fr 1.3fr 1fr 1fr auto;
+            gap: 12px;
+            align-items: start;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e1e5eb;
+        }
+
+        button {
+            min-height: 42px;
+            padding: 9px 14px;
+            border: 1px solid #155eef;
+            border-radius: 0;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .primary-button {
+            color: #fff;
+            background: #155eef;
+        }
+
+        .secondary-button {
+            color: #202938;
+            background: #fff;
+            border-color: #aeb8c5;
+        }
+
+        .remove-button {
+            color: #a12622;
+            background: #fff;
+            border-color: #c65b56;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        #message {
+            margin-top: 16px;
+            color: #147a3d;
+        }
+
+        @media (max-width: 700px) {
+            .form-container {
+                padding: 20px 16px;
+            }
+
+            fieldset {
+                padding: 16px 12px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .period-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .period-row .remove-button {
+                grid-column: 1 / -1;
+            }
+
+            .actions,
+            .periods-heading {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="form-container">
+        <h1>Add Class Routine</h1>
+        <p class="description">Set the class details and schedule periods for the selected day.</p>
+
+        <form id="routineForm">
+            <fieldset>
+                <legend>Class Details</legend>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <select id="className" name="className" required>
+                            <option value="" selected></option>
+                            <option value="Grade 1">Grade 1</option>
+                            <option value="Grade 2">Grade 2</option>
+                            <option value="Grade 3">Grade 3</option>
+                            <option value="Grade 4">Grade 4</option>
+                            <option value="Grade 5">Grade 5</option>
+                            <option value="Grade 6">Grade 6</option>
+                            <option value="Grade 7">Grade 7</option>
+                            <option value="Grade 8">Grade 8</option>
+                            <option value="Grade 9">Grade 9</option>
+                            <option value="Grade 10">Grade 10</option>
+                            <option value="Grade 11">Grade 11</option>
+                            <option value="Grade 12">Grade 12</option>
+                        </select>
+                        <label for="className">Class</label>
+                    </div>
+
+                    <div class="field">
+                        <input type="text" id="section" name="section" placeholder=" " required>
+                        <label for="section">Section</label>
+                    </div>
+
+                    <div class="field">
+                        <select id="day" name="day" required>
+                            <option value="" selected></option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
+                        <label for="day">Day</label>
+                    </div>
+
+                    <div class="field">
+                        <input type="text" id="academicYear" name="academicYear" placeholder=" ">
+                        <label for="academicYear">Academic Year</label>
+                    </div>
+
+                    <div class="field">
+                        <input type="date" id="effectiveDate" name="effectiveDate">
+                        <label for="effectiveDate">Effective From</label>
+                    </div>
+
+                    <div class="field">
+                        <input type="text" id="room" name="room" placeholder=" ">
+                        <label for="room">Room</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Schedule Periods</legend>
+
+                <div class="periods-heading">
+                    <h2>Periods</h2>
+                    <button type="button" class="secondary-button" id="addPeriod">
+                        Add Period
+                    </button>
+                </div>
+
+                <div id="periodList"></div>
+            </fieldset>
+
+            <div class="actions">
+                <button type="submit" class="primary-button">Save Routine</button>
+                <button type="reset" class="secondary-button">Clear Form</button>
+            </div>
+
+            <p id="message" role="status" aria-live="polite"></p>
+        </form>
+    </main>
+
+    <template id="periodTemplate">
+        <div class="period-row">
+            <div class="field">
+                <select class="subject" name="subject[]" required>
+                    <option value="" selected></option>
+                    <option value="English">English</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Science">Science</option>
+                    <option value="Social Studies">Social Studies</option>
+                    <option value="History">History</option>
+                    <option value="Geography">Geography</option>
+                    <option value="Computer Studies">Computer Studies</option>
+                    <option value="Physical Education">Physical Education</option>
+                    <option value="Other">Other</option>
+                </select>
+                <label>Subject</label>
+            </div>
+
+            <div class="field">
+                <input type="text" name="teacher[]" placeholder=" " required>
+                <label>Teacher's Name</label>
+            </div>
+
+            <div class="field">
+                <input type="time" name="startTime[]" required>
+                <label>Start Time</label>
+            </div>
+
+            <div class="field">
+                <input type="time" name="endTime[]" required>
+                <label>End Time</label>
+            </div>
+
+            <button type="button" class="remove-button">Remove</button>
+        </div>
+    </template>
+
+    <script>
+        const form = document.getElementById("routineForm");
+        const periodList = document.getElementById("periodList");
+        const periodTemplate = document.getElementById("periodTemplate");
+        const addPeriodButton = document.getElementById("addPeriod");
+        const message = document.getElementById("message");
+
+        function updateField(field) {
+            const wrapper = field.closest(".field");
+            if (!wrapper) return;
+
+            const hasValue = field.type === "file"
+                ? field.files.length > 0
+                : field.value.trim() !== "";
+
+            wrapper.classList.toggle("has-value", hasValue);
+        }
+
+        function addPeriod() {
+            const fragment = periodTemplate.content.cloneNode(true);
+            const row = fragment.querySelector(".period-row");
+
+            row.querySelectorAll("input, select").forEach((field) => {
+                field.addEventListener("input", () => updateField(field));
+                field.addEventListener("change", () => updateField(field));
+                updateField(field);
+            });
+
+            row.querySelector(".remove-button").addEventListener("click", () => {
+                row.remove();
+            });
+
+            periodList.appendChild(fragment);
+        }
+
+        addPeriodButton.addEventListener("click", addPeriod);
+
+        form.querySelectorAll("input, select").forEach((field) => {
+            field.addEventListener("input", () => updateField(field));
+            field.addEventListener("change", () => updateField(field));
+            updateField(field);
+        });
+
+        form.addEventListener("reset", () => {
+            message.textContent = "";
+
+            setTimeout(() => {
+                periodList.innerHTML = "";
+                addPeriod();
+
+                form.querySelectorAll("input, select").forEach(updateField);
+            }, 0);
+        });
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            if (!form.reportValidity()) return;
+
+            message.textContent = "Class routine saved successfully.";
+        });
+
+        // Start with one schedule period.
+        addPeriod();
+    </script>
+</body>
+
+</html>
