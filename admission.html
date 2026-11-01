@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Application Form</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      background: #f3f5f7;
+      color: #202a35;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .form-container {
+      width: min(100%, 960px);
+      margin: 0 auto;
+      padding: 32px;
+      background: #fff;
+      border: 1px solid #d5dbe1;
+      border-radius: 0;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      text-align: center;
+      font-size: 28px;
+    }
+
+    .form-intro {
+      margin: 0 0 28px;
+      color: #5d6874;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .form-section {
+      margin: 28px 0;
+      padding: 20px;
+      border: 1px solid #d5dbe1;
+      border-radius: 0;
+    }
+
+    .form-section h2 {
+      margin: 0 0 20px;
+      font-size: 19px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px 18px;
+    }
+
+    .form-group {
+      position: relative;
+      min-width: 0;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group input:not([type="checkbox"]),
+    .form-group select,
+    .form-group textarea {
+      display: block;
+      width: 100%;
+      min-height: 52px;
+      padding: 18px 12px 8px;
+      border: 1px solid #aab3bd;
+      border-radius: 0;
+      background: #fff;
+      color: #202a35;
+      font: inherit;
+      outline: none;
+    }
+
+    .form-group select {
+      padding-top: 19px;
+    }
+
+    .form-group textarea {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    .form-group label {
+      position: absolute;
+      top: 16px;
+      left: 12px;
+      z-index: 1;
+      padding: 0 3px;
+      color: #687482;
+      background: #fff;
+      font-size: 14px;
+      pointer-events: none;
+      transition: top 0.15s ease, font-size 0.15s ease, color 0.15s ease;
+    }
+
+    .form-group:focus-within label,
+    .form-group.has-value label {
+      top: -7px;
+      color: #1558a6;
+      font-size: 12px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #1558a6;
+      box-shadow: 0 0 0 1px #1558a6;
+    }
+
+    .form-group input[type="date"] {
+      padding-top: 19px;
+    }
+
+    .form-group input[type="date"] + label {
+      top: -7px;
+      font-size: 12px;
+    }
+
+    .form-group input[type="file"] {
+      min-height: 58px;
+      padding: 22px 10px 8px;
+    }
+
+    .form-group input[type="file"] + label {
+      top: -7px;
+      font-size: 12px;
+    }
+
+    .file-help {
+      display: block;
+      margin-top: 6px;
+      color: #687482;
+      font-size: 12px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+
+    .checkbox-row input {
+      width: 18px;
+      height: 18px;
+      margin: 2px 0 0;
+      accent-color: #1558a6;
+    }
+
+    .checkbox-row label {
+      cursor: pointer;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      min-width: 120px;
+      padding: 12px 18px;
+      border: 1px solid #1558a6;
+      border-radius: 0;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .submit-button {
+      background: #1558a6;
+      color: #fff;
+    }
+
+    .reset-button {
+      background: #fff;
+      color: #1558a6;
+    }
+
+    button:hover {
+      opacity: 0.88;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 10px;
+      }
+
+      .form-container {
+        padding: 20px 14px;
+      }
+
+      .form-section {
+        padding: 16px 12px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full-width {
+        grid-column: auto;
+      }
+
+      .button-row {
+        flex-direction: column-reverse;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="form-container">
+    <h1>Teacher Application Form</h1>
+    <p class="form-intro">
+      Please complete the application form and upload the required documents.
+    </p>
+
+    <form id="teacherForm" action="#" method="post" enctype="multipart/form-data">
+
+      <section class="form-section">
+        <h2>Position Details</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <select id="position" name="position" required>
+              <option value="" selected disabled></option>
+              <option>Assistant Teacher</option>
+              <option>Senior Teacher</option>
+              <option>Head Teacher</option>
+              <option>Subject Teacher</option>
+              <option>Lecturer</option>
+              <option>Other</option>
+            </select>
+            <label for="position">Position Applying For</label>
+          </div>
+
+          <div class="form-group">
+            <select id="department" name="department" required>
+              <option value="" selected disabled></option>
+              <option>Early Years</option>
+              <option>Primary</option>
+              <option>Secondary</option>
+              <option>Higher Secondary</option>
+              <option>Administration</option>
+              <option>Other</option>
+            </select>
+            <label for="department">Department / Level</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="subject" name="subject" placeholder=" " required>
+            <label for="subject">Subject / Specialization</label>
+          </div>
+
+          <div class="form-group">
+            <select id="employmentType" name="employmentType">
+              <option value="" selected disabled></option>
+              <option>Full-Time</option>
+              <option>Part-Time</option>
+              <option>Temporary</option>
+              <option>Contract</option>
+            </select>
+            <label for="employmentType">Employment Type</label>
+          </div>
+
+          <div class="form-group">
+            <input type="date" id="availableDate" name="availableDate">
+            <label for="availableDate">Available Start Date</label>
+          </div>
+
+          <div class="form-group">
+            <select id="preferredShift" name="preferredShift">
+              <option value="" selected disabled></option>
+              <option>Morning</option>
+              <option>Day</option>
+              <option>Evening</option>
+              <option>Flexible</option>
+            </select>
+            <label for="preferredShift">Preferred Shift</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Personal Information</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <input type="text" id="fullName" name="fullName" placeholder=" " required>
+            <label for="fullName">Full Name</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="nativeName" name="nativeName" placeholder=" ">
+            <label for="nativeName">Name in Native Language</label>
+          </div>
+
+          <div class="form-group">
+            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+            <label for="dateOfBirth">Date of Birth</label>
+          </div>
+
+          <div class="form-group">
+            <select id="gender" name="gender" required>
+              <option value="" selected disabled></option>
+              <option>Female</option>
+              <option>Male</option>
+              <option>Prefer not to say</option>
+            </select>
+            <label for="gender">Gender</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="nationality" name="nationality">
+            <label for="nationality">Nationality</label>
+          </div>
+
+          <div class="form-group">
+            <select id="maritalStatus" name="maritalStatus">
+              <option value="" selected disabled></option>
+              <option>Single</option>
+              <option>Married</option>
+              <option>Prefer not to say</option>
+            </select>
+            <label for="maritalStatus">Marital Status</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="nationalId" name="nationalId" placeholder=" ">
+            <label for="nationalId">National ID / Passport Number</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="bloodGroup" name="bloodGroup" placeholder=" ">
+            <label for="bloodGroup">Blood Group</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Contact Information</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <input type="email" id="email" name="email" placeholder=" " required>
+            <label for="email">Email Address</label>
+          </div>
+
+          <div class="form-group">
+            <input type="tel" id="phone" name="phone" placeholder=" " required>
+            <label for="phone">Phone Number</label>
+          </div>
+
+          <div class="form-group">
+            <input type="tel" id="alternatePhone" name="alternatePhone" placeholder=" ">
+            <label for="alternatePhone">Alternate Phone Number</label>
+          </div>
+
+          <div class="form-group full-width">
+            <textarea id="presentAddress" name="presentAddress" placeholder=" "></textarea>
+            <label for="presentAddress">Present Address</label>
+          </div>
+
+          <div class="form-group full-width">
+            <textarea id="permanentAddress" name="permanentAddress" placeholder=" "></textarea>
+            <label for="permanentAddress">Permanent Address</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Emergency Contact Information</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <input type="text" id="emergencyName" name="emergencyName" placeholder=" " required>
+            <label for="emergencyName">Contact Person's Name</label>
+          </div>
+
+          <div class="form-group">
+            <input type="tel" id="emergencyPhone" name="emergencyPhone" placeholder=" " required>
+            <label for="emergencyPhone">Emergency Contact Phone</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="emergencyRelationship" name="emergencyRelationship" placeholder=" ">
+            <label for="emergencyRelationship">Relationship to Applicant</label>
+          </div>
+
+          <div class="form-group">
+            <input type="email" id="emergencyEmail" name="emergencyEmail" placeholder=" ">
+            <label for="emergencyEmail">Email Address</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Education and Qualifications</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <input type="text" id="highestQualification" name="highestQualification" placeholder=" " required>
+            <label for="highestQualification">Highest Qualification</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="fieldOfStudy" name="fieldOfStudy" placeholder=" ">
+            <label for="fieldOfStudy">Field of Study</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="institution" name="institution" placeholder=" ">
+            <label for="institution">Institution Name</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="graduationYear" name="graduationYear" placeholder=" ">
+            <label for="graduationYear">Graduation Year</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="teachingCertificate" name="teachingCertificate" placeholder=" ">
+            <label for="teachingCertificate">Teaching Certificate / License</label>
+          </div>
+
+          <div class="form-group">
+            <input type="number" id="experienceYears" name="experienceYears" min="0" placeholder=" ">
+            <label for="experienceYears">Teaching Experience (Years)</label>
+          </div>
+
+          <div class="form-group full-width">
+            <textarea id="additionalQualifications" name="additionalQualifications" placeholder=" "></textarea>
+            <label for="additionalQualifications">Additional Qualifications or Skills</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Previous Employment</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <input type="text" id="previousEmployer" name="previousEmployer" placeholder=" ">
+            <label for="previousEmployer">Previous School / Employer</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="previousJobTitle" name="previousJobTitle" placeholder=" ">
+            <label for="previousJobTitle">Previous Job Title</label>
+          </div>
+
+          <div class="form-group">
+            <input type="date" id="employmentStartDate" name="employmentStartDate">
+            <label for="employmentStartDate">Employment Start Date</label>
+          </div>
+
+          <div class="form-group">
+            <input type="date" id="employmentEndDate" name="employmentEndDate">
+            <label for="employmentEndDate">Employment End Date</label>
+          </div>
+
+          <div class="form-group full-width">
+            <textarea id="reasonForLeaving" name="reasonForLeaving" placeholder=" "></textarea>
+            <label for="reasonForLeaving">Reason for Leaving</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>References</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <input type="text" id="referenceOneName" name="referenceOneName" placeholder=" ">
+            <label for="referenceOneName">Reference One: Full Name</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="referenceOnePosition" name="referenceOnePosition" placeholder=" ">
+            <label for="referenceOnePosition">Reference One: Position</label>
+          </div>
+
+          <div class="form-group">
+            <input type="tel" id="referenceOnePhone" name="referenceOnePhone" placeholder=" ">
+            <label for="referenceOnePhone">Reference One: Phone</label>
+          </div>
+
+          <div class="form-group">
+            <input type="email" id="referenceOneEmail" name="referenceOneEmail" placeholder=" ">
+            <label for="referenceOneEmail">Reference One: Email</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="referenceTwoName" name="referenceTwoName" placeholder=" ">
+            <label for="referenceTwoName">Reference Two: Full Name</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="referenceTwoPosition" name="referenceTwoPosition" placeholder=" ">
+            <label for="referenceTwoPosition">Reference Two: Position</label>
+          </div>
+
+          <div class="form-group">
+            <input type="tel" id="referenceTwoPhone" name="referenceTwoPhone" placeholder=" ">
+            <label for="referenceTwoPhone">Reference Two: Phone</label>
+          </div>
+
+          <div class="form-group">
+            <input type="email" id="referenceTwoEmail" name="referenceTwoEmail" placeholder=" ">
+            <label for="referenceTwoEmail">Reference Two: Email</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Document Uploads</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+            <label for="resume">Resume / Curriculum Vitae</label>
+            <small class="file-help">PDF, DOC, or DOCX</small>
+          </div>
+
+          <div class="form-group">
+            <input type="file" id="coverLetter" name="coverLetter" accept=".pdf,.doc,.docx">
+            <label for="coverLetter">Cover Letter</label>
+            <small class="file-help">PDF, DOC, or DOCX</small>
+          </div>
+
+          <div class="form-group">
+            <input type="file" id="qualificationCertificates" name="qualificationCertificates"
+                   accept=".pdf,.jpg,.jpeg,.png">
+            <label for="qualificationCertificates">Qualification Certificates</label>
+            <small class="file-help">PDF, JPG, JPEG, or PNG</small>
+          </div>
+
+          <div class="form-group">
+            <input type="file" id="teachingCertificateCopy" name="teachingCertificateCopy"
+                   accept=".pdf,.jpg,.jpeg,.png">
+            <label for="teachingCertificateCopy">Teaching Certificate / License</label>
+            <small class="file-help">PDF, JPG, JPEG, or PNG</small>
+          </div>
+
+          <div class="form-group">
+            <input type="file" id="identityDocument" name="identityDocument"
+                   accept=".pdf,.jpg,.jpeg,.png">
+            <label for="identityDocument">National ID / Passport Copy</label>
+            <small class="file-help">PDF, JPG, JPEG, or PNG</small>
+          </div>
+
+          <div class="form-group">
+            <input type="file" id="teacherPhotograph" name="teacherPhotograph"
+                   accept=".jpg,.jpeg,.png">
+            <label for="teacherPhotograph">Recent Photograph</label>
+            <small class="file-help">JPG, JPEG, or PNG</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="checkbox-row">
+          <input type="checkbox" id="confirmation" name="confirmation" required>
+          <label for="confirmation">
+            I confirm that the information provided in this application is accurate and complete.
+          </label>
+        </div>
+      </section>
+
+      <div class="button-row">
+        <button type="reset" class="reset-button">Reset Form</button>
+        <button type="submit" class="submit-button">Submit Application</button>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById("teacherForm");
+
+    function updateFloatingLabel(field) {
+      const group = field.closest(".form-group");
+      if (!group) return;
+
+      const hasValue = field.type === "file"
+        ? field.files.length > 0
+        : field.value.trim() !== "";
+
+      group.classList.toggle("has-value", hasValue);
+    }
+
+    const fields = form.querySelectorAll(
+      ".form-group input:not([type='checkbox']), .form-group select, .form-group textarea"
+    );
+
+    fields.forEach((field) => {
+      updateFloatingLabel(field);
+      field.addEventListener("input", () => updateFloatingLabel(field));
+      field.addEventListener("change", () => updateFloatingLabel(field));
+    });
+
+    form.addEventListener("reset", () => {
+      setTimeout(() => {
+        fields.forEach(updateFloatingLabel);
+      }, 0);
+    });
+  </script>
+</body>
+</html>
